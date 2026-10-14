@@ -279,7 +279,7 @@
     const g=session('reaction');g.phase='wait';
     g.timeouts.push(setTimeout(()=>{
       if(activeGame!==g)return;g.phase='go';g.started=performance.now();const zone=$('#reactionZone');zone.classList.add('go');zone.textContent='ЖМИ! ⚡';
-      g.timeouts.push(setTimeout(()=>{if(activeGame!==g)return&&g.phase!=='go')return;if(g.phase==='go'){g.phase='late';zone.textContent='СЛИШКО ПОЗДНО';zone.classList.remove('go');}},1800));
+      g.timeouts.push(setTimeout(()=>{if(activeGame!==g||g.phase!=='go')return;if(g.phase==='go'){g.phase='late';zone.textContent='СЛИШКО ПОЗДНО';zone.classList.remove('go');}},1800));
     },1300+rand(2600)));
     $('#reactionZone').onclick=()=>{
       if(activeGame!==g)return;
