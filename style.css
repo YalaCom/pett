@@ -109,3 +109,31 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none}
  .action-graphic{height:28px;width:30px;font-size:18px}
  .action-btn small{display:none}
 }
+
+/* Expressive GPU-composited motion for actual artwork, not static illustration */
+.pet-art:not([hidden]){transform-origin:50% 86%;animation:pet-breathe 2.9s ease-in-out infinite;will-change:transform}
+.pet-art[data-motion=happy]{animation:pet-happy .46s ease-in-out infinite alternate}
+.pet-art[data-motion=dance]{animation:pet-dance .42s ease-in-out infinite}
+.pet-art[data-motion=eat]{animation:pet-eat .27s ease-in-out infinite}
+.pet-art[data-motion=talk]{animation:pet-talk .2s ease-in-out infinite alternate}
+.pet-art[data-motion=bath]{animation:pet-bath .25s ease-in-out infinite alternate}
+.pet-art[data-motion=sad]{animation:pet-sad 1.6s ease-in-out infinite}
+.pet-art[data-motion=angry]{animation:pet-angry .14s ease-in-out infinite alternate}
+.is-sleeping .pet-art:not([hidden]){animation:pet-sleep 3.4s ease-in-out infinite}
+@keyframes pet-breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.015)}}
+@keyframes pet-happy{0%{transform:translateY(0) rotate(-5deg)}100%{transform:translateY(-21px) rotate(6deg)}}
+@keyframes pet-dance{0%,100%{transform:translateY(0) rotate(-10deg)}25%{transform:translateY(-19px) rotate(9deg)}50%{transform:translateY(0) rotate(12deg)}75%{transform:translateY(-19px) rotate(-9deg)}}
+@keyframes pet-eat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(6px) scale(.98,1.03)}}
+@keyframes pet-talk{from{transform:translateY(-3px) rotate(-2deg)}to{transform:translateY(2px) rotate(2deg)}}
+@keyframes pet-bath{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes pet-sad{0%,100%{transform:translateY(9px) rotate(-4deg)}50%{transform:translateY(12px) rotate(-7deg)}}
+@keyframes pet-angry{from{transform:translateX(-5px) rotate(-2deg)}to{transform:translateX(5px) rotate(2deg)}}
+@keyframes pet-sleep{0%,100%{transform:translateY(8px) scale(1,.985)}50%{transform:translateY(8px) scale(1.015,1.015)}}
+.stat-card{transition:border-color .25s,box-shadow .25s}
+.stat-card:hover{border-color:#ffae8060;box-shadow:0 0 18px #ff886018}
+.coin-icon{animation:coin-spark 3s ease-in-out infinite}
+@keyframes coin-spark{0%,100%{filter:brightness(1)}50%{filter:brightness(1.45)}}
+.action-graphic{transition:transform .22s cubic-bezier(.2,1.6,.4,1),filter .22s}
+.action-btn:hover .action-graphic,.action-btn:focus-visible .action-graphic{transform:translateY(-5px) scale(1.1);filter:brightness(1.15)}
+.room-lamp{animation:lamp-pulse 5s ease-in-out infinite}
+@keyframes lamp-pulse{0%,100%{opacity:.82}50%{opacity:1;filter:brightness(1.2)}}
