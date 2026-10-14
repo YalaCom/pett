@@ -155,7 +155,7 @@
       hz.forEach((f,i)=>{const o=soundCtx.createOscillator(),g=soundCtx.createGain(),t=soundCtx.currentTime+i*.075;o.type='sine';o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.055,t);g.gain.exponentialRampToValueAtTime(.0001,t+.18);o.connect(g);g.connect(soundCtx.destination);o.start(t);o.stop(t+.2);});
     }catch(_){}
   }
-  function setMotion(name,ms=1600){motion={name,start:performance.now(),end:performance.now()+ms};}
+  function setMotion(name,ms=1600){motion={name,start:performance.now(),end:performance.now()+ms}; const art=$('#petArt');if(art&&!art.hidden){art.dataset.motion=name;clearTimeout(art._motionTimer);art._motionTimer=setTimeout(()=>{art.dataset.motion='idle';},ms);}}
   function wake(){
     if(!s.sleeping)return;
     s.sleeping=false;document.body.classList.remove('is-sleeping');s.energy=limit(s.energy+3);say('Я проснулся! Где мои вкусняшки? 😺');setMotion('happy',1600);
@@ -449,6 +449,7 @@
     }
   });
   $('#petSvg').addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;pet();});
+  $('#petArt').addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;pet();});
   $('#roomButton').onclick=()=>navigate('shop');
   $('#renameButton').onclick=changeName;$('#dailyBonus').onclick=dailyBonus;
   $('#soundButton').onclick=()=>{s.sound=!s.sound;render();save();if(s.sound)chime('coin');};
