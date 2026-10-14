@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10111c">
+  <meta name="description" content="Arizona Pet — твой интерактивный кот, который живёт, играет, разговаривает и растёт вместе с тобой.">
+  <title>Arizona Pet — твой говорящий питомец</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#" aria-label="Arizona Pet — главная">
+      <span class="brand-symbol"><span class="brand-peak"></span></span>
+      <span class="brand-words"><strong>ARIZONA</strong><em>PET <b>RP</b></em></span>
+    </a>
+    <div class="side-caption">МОЙ ВИРТУАЛЬНЫЙ МИР</div>
+    <nav class="main-nav" aria-label="Разделы">
+      <button class="nav-btn active" data-section="home"><span class="nav-icon">⌂</span><span>Главная</span></button>
+      <button class="nav-btn" data-section="food"><span class="nav-icon">◈</span><span>Кухня</span></button>
+      <button class="nav-btn" data-section="bath"><span class="nav-icon">◉</span><span>Ванная</span></button>
+      <button class="nav-btn" data-section="wardrobe"><span class="nav-icon">✦</span><span>Гардероб</span></button>
+      <button class="nav-btn" data-section="games"><span class="nav-icon">✣</span><span>Мини-игры</span></button>
+      <button class="nav-btn" data-section="shop"><span class="nav-icon">▣</span><span>Магазин</span></button>
+      <button class="nav-btn" data-section="awards"><span class="nav-icon">★</span><span>Награды</span></button>
+    </nav>
+    <div class="side-footer">
+      <span class="online-dot"></span> МОЙ МАЛЕНЬКИЙ АРИЗОНОВЕЦ
+      <p>Состояние питомца сохраняется автоматически</p>
+    </div>
+  </aside>
+
+  <main class="main-view">
+    <header class="topbar">
+      <div class="topbar-title"><span class="eyebrow">ARIZONA LIFE SIMULATOR</span><h1>МОЙ ПИТОМЕЦ <span class="spark">✦</span></h1></div>
+      <div class="header-actions">
+        <span class="day-pill" id="clockText">ДОБРО ПОЖАЛОВАТЬ</span>
+        <button id="soundButton" class="icon-button" type="button" title="Включить или выключить звуки" aria-label="Звуки">♫</button>
+        <div class="coin-pill" title="Твои монеты"><span class="coin-icon">★</span><strong id="coinValue">250</strong><span>AZ</span></div>
+      </div>
+    </header>
+
+    <section class="stats-grid" aria-label="Потребности питомца">
+      <div class="stat-card food-stat"><span class="stat-emoji">♥</span><div class="stat-inner"><div class="stat-label"><span>Сытость</span><b id="foodNumber">85%</b></div><div class="meter"><span id="foodBar"></span></div></div></div>
+      <div class="stat-card fun-stat"><span class="stat-emoji">☺</span><div class="stat-inner"><div class="stat-label"><span>Настроение</span><b id="funNumber">90%</b></div><div class="meter"><span id="funBar"></span></div></div></div>
+      <div class="stat-card energy-stat"><span class="stat-emoji">ϟ</span><div class="stat-inner"><div class="stat-label"><span>Энергия</span><b id="energyNumber">90%</b></div><div class="meter"><span id="energyBar"></span></div></div></div>
+      <div class="stat-card clean-stat"><span class="stat-emoji">♦</span><div class="stat-inner"><div class="stat-label"><span>Чистота</span><b id="cleanNumber">95%</b></div><div class="meter"><span id="cleanBar"></span></div></div></div>
+    </section>
+
+    <div class="content-grid">
+      <section class="pet-scene" id="petScene" data-room="loft" aria-label="Домик питомца">
+        <div class="sky-scene">
+          <div class="sun-orb"></div><div class="skyline skyline-back"></div><div class="skyline skyline-front"></div>
+          <span class="palm palm-left">✳</span><span class="palm palm-right">✳</span>
+        </div>
+        <div class="window-frame"><span></span><span></span></div>
+        <div class="wall-detail"><span class="neon-sign">ARIZONA <b>RP</b></span></div>
+        <div class="room-lamp"></div>
+        <div class="room-floor"></div>
+        <div class="room-couch"></div>
+        <div class="room-rug"></div>
+        <div class="room-plant">✳</div>
+        <div class="scene-topline">
+          <div class="level-card"><span class="level-badge" id="levelBadge">1</span><div><strong id="petDisplayName">ТОМИК</strong><span>УРОВЕНЬ <b id="levelNumber">1</b></span></div><div class="xp-track"><span id="xpBar"></span></div></div>
+          <button id="roomButton" class="glass-button" type="button" title="Сменить комнату">⌂ <span id="roomLabel">Пентхаус</span> <small>⌄</small></button>
+        </div>
+
+        <div class="speech-bubble" id="speechBubble" role="status" aria-live="polite">Привет! Я твой Томик! <span>♥</span></div>
+        <div class="pet-stage" id="petStage">
+          <div class="pet-shadow"></div>
+          <div class="pet-float" id="petFloat">
+            <svg id="petSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 510" role="img" aria-label="Милый серый кот в одежде Arizona">
+              <defs>
+                <linearGradient id="fur" x1="0" x2="1" y1="0" y2=".8"><stop stop-color="#e5e9eb"/><stop offset=".45" stop-color="#929caa"/><stop offset="1" stop-color="#586270"/></linearGradient>
+                <linearGradient id="furLight" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff"/><stop offset=".7" stop-color="#e9e9ef"/><stop offset="1" stop-color="#adb7c4"/></linearGradient>
+                <linearGradient id="innerEar" x1="0" x2=".85" y1="0" y2="1"><stop stop-color="#fcafbd"/><stop offset="1" stop-color="#ce627f"/></linearGradient>
+                <linearGradient id="jacket" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#374052"/><stop offset=".5" stop-color="#171b29"/><stop offset="1" stop-color="#070b14"/></linearGradient>
+                <linearGradient id="eyeGreen" x1="0" x2=".9" y1="0" y2="1"><stop stop-color="#bdff88"/><stop offset=".55" stop-color="#35c98a"/><stop offset="1" stop-color="#048b83"/></linearGradient>
+                <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff6bd"/><stop offset=".4" stop-color="#ffc347"/><stop offset="1" stop-color="#dc7925"/></linearGradient>
+                <linearGradient id="shoe" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#b6c0d5"/></linearGradient>
+                <filter id="petDrop" x="-40%" y="-30%" width="180%" height="190%"><feGaussianBlur in="SourceAlpha" stdDeviation="7"/><feOffset dy="8"/><feComponentTransfer><feFuncA type="linear" slope=".3"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <g filter="url(#petDrop)">
+                <g id="petTail" style="transform-origin:262px 376px">
+                  <path d="M261 375 C350 400 369 325 323 315 C289 310 294 352 329 344" fill="none" stroke="#606977" stroke-width="31" stroke-linecap="round"/>
+                  <path d="M277 383 C348 383 358 329 325 326" fill="none" stroke="#a3afbd" stroke-width="13" stroke-linecap="round"/>
+                  <path d="M324 317 Q337 319 342 329" fill="none" stroke="#474d60" stroke-width="7" stroke-linecap="round"/>
+                </g>
+                <g id="petLegs">
+                  <path d="M151 370 Q133 413 135 455 L191 462 197 396 M224 398 L225 466 283 459 Q288 425 264 375" fill="url(#jacket)" stroke="#0d1220" stroke-width="7"/>
+                  <path d="M138 449 Q130 452 119 465 Q107 481 120 487 Q151 497 195 482 L190 457Z" fill="url(#shoe)" stroke="#697487" stroke-width="4"/>
+                  <path d="M230 457 Q260 444 277 453 Q297 462 300 475 Q308 494 270 491 L226 481Z" fill="url(#shoe)" stroke="#697487" stroke-width="4"/>
+                  <path d="M124 481 Q157 489 191 477 M229 481 Q266 493 294 484" fill="none" stroke="#ed6872" stroke-width="7" stroke-linecap="round"/>
+                  <path d="M139 466 L175 468 M243 468 L278 467" stroke="#9299b1" stroke-width="4" stroke-linecap="round"/>
+                </g>
+                <g id="petLeftArm" style="transform-origin:149px 308px">
+                  <path d="M147 307 Q98 310 89 357 Q75 390 96 412 Q121 424 136 396 L169 346Z" fill="url(#jacket)" stroke="#0b1120" stroke-width="6"/>
+                  <path d="M91 391 Q82 414 103 423 Q124 427 133 402 Q126 386 111 384Z" fill="url(#fur)" stroke="#5c687b" stroke-width="4"/>
+                  <path d="M101 414 Q109 406 111 393 M115 418 Q120 409 120 396" fill="none" stroke="#5e6472" stroke-width="3" stroke-linecap="round"/>
+                </g>
+                <g id="petRightArm" style="transform-origin:273px 303px">
+                  <path d="M272 307 Q323 306 329 357 Q344 396 319 408 Q298 415 283 391 L254 347Z" fill="url(#jacket)" stroke="#0b1120" stroke-width="6"/>
+                  <path d="M302 390 Q312 378 326 390 Q343 409 327 425 Q308 437 293 412Z" fill="url(#fur)" stroke="#606a79" stroke-width="4"/>
+                  <ellipse cx="319" cy="402" rx="8" ry="10" fill="#df8292" transform="rotate(-23 319 402)"/>
+                  <circle cx="305" cy="403" r="4" fill="#eeb5c0"/><circle cx="312" cy="389" r="4" fill="#eeb5c0"/><circle cx="324" cy="387" r="4" fill="#eeb5c0"/>
+                </g>
+                <g id="petBody" style="transform-origin:210px 367px">
+                  <path id="shirtShape" d="M164 285 Q210 270 257 287 Q291 309 297 370 L280 421 Q215 447 145 420 L126 363 Q133 304 164 285Z" fill="url(#jacket)" stroke="#0d1222" stroke-width="7"/>
+                  <path d="M167 291 Q210 307 251 291 L238 329 Q211 343 183 326Z" fill="#777f90" stroke="#171b2a" stroke-width="6"/>
+                  <path d="M209 330 L210 429" stroke="#5d6473" stroke-width="5"/><rect x="206" y="337" width="9" height="20" rx="3" fill="#d7b061"/>
+                  <path d="M169 367 Q210 379 251 367" fill="none" stroke="#303849" stroke-width="5"/>
+                  <path d="M171 395 Q210 405 249 393" fill="none" stroke="#323b4b" stroke-width="4"/>
+                  <g id="shirtLogo"><path d="M194 375 L207 348 229 386 216 380 208 367 203 378Z" fill="#ff7555"/><path d="M207 349 L222 358 218 371 208 365Z" fill="#3fd1ff"/><text x="210" y="402" text-anchor="middle" font-size="14" font-family="Arial,sans-serif" font-weight="900" fill="#f2f2fa" letter-spacing="1.3">ARIZONA</text></g>
+                  <path d="M185 333 Q185 354 201 358 M237 333 Q237 354 220 358" stroke="url(#gold)" stroke-width="4" fill="none"/>
+                  <path d="M202 358 L213 358 220 372 210 384 199 372Z" fill="url(#gold)" stroke="#b67a38" stroke-width="2"/>
+                </g>
+                <g id="petHead" style="transform-origin:210px 233px">
+                  <path d="M117 184 Q103 147 93 90 Q88 65 113 79 Q151 98 175 122 L255 122 Q293 92 310 80 Q332 70 325 102 L303 191Z" fill="url(#fur)" stroke="#586273" stroke-width="8" stroke-linejoin="round"/>
+                  <path d="M118 158 Q109 121 109 104 Q110 94 122 107 L158 136Z" fill="url(#innerEar)"/>
+                  <path d="M273 135 L311 102 Q318 98 313 126 L302 158Z" fill="url(#innerEar)"/>
+                  <path d="M105 192 C100 130 143 106 209 105 C283 101 326 150 318 226 C316 293 263 332 208 335 C141 334 96 285 105 192Z" fill="url(#fur)" stroke="#606b7e" stroke-width="7"/>
+                  <path d="M153 120 Q171 132 174 151 M204 109 L204 145 M250 123 L240 152" stroke="#667284" stroke-width="11" stroke-linecap="round" opacity=".75"/>
+                  <path d="M107 200 Q123 195 136 205 M110 227 Q125 228 135 237 M305 202 Q317 194 319 197 M306 232 Q320 226 324 226" stroke="#687589" stroke-width="8" stroke-linecap="round" opacity=".75"/>
+                  <ellipse cx="207" cy="276" rx="83" ry="55" fill="url(#furLight)"/>
+                  <ellipse cx="161" cy="251" rx="49" ry="61" fill="#e9edf1" opacity=".83"/>
+                  <ellipse cx="255" cy="250" rx="49" ry="61" fill="#ecf0f3" opacity=".83"/>
+                  <g id="eyeLeft">
+                    <ellipse cx="163" cy="219" rx="40" ry="48" fill="#f9fbff" stroke="#757d8d" stroke-width="4"/>
+                    <ellipse class="iris" id="irisLeft" cx="173" cy="223" rx="25" ry="35" fill="url(#eyeGreen)"/>
+                    <ellipse id="pupilLeft" cx="177" cy="224" rx="12" ry="27" fill="#14212e"/>
+                    <ellipse cx="180" cy="209" rx="8" ry="11" fill="#fff"/><circle cx="164" cy="236" r="4" fill="#e5ffff" opacity=".8"/>
+                  </g>
+                  <g id="eyeRight">
+                    <ellipse cx="251" cy="219" rx="40" ry="48" fill="#f9fbff" stroke="#757d8d" stroke-width="4"/>
+                    <ellipse class="iris" id="irisRight" cx="261" cy="223" rx="25" ry="35" fill="url(#eyeGreen)"/>
+                    <ellipse id="pupilRight" cx="265" cy="224" rx="12" ry="27" fill="#14212e"/>
+                    <ellipse cx="268" cy="209" rx="8" ry="11" fill="#fff"/><circle cx="252" cy="236" r="4" fill="#e5ffff" opacity=".8"/>
+                  </g>
+                  <path id="browLeft" d="M137 172 Q161 160 187 174" fill="none" stroke="#647081" stroke-width="8" stroke-linecap="round"/>
+                  <path id="browRight" d="M230 174 Q254 160 276 173" fill="none" stroke="#647081" stroke-width="8" stroke-linecap="round"/>
+                  <path d="M177 272 Q183 253 208 255 Q233 253 240 274" fill="#f3f3f8"/>
+                  <path d="M195 270 Q210 260 224 270 Q218 288 210 286 Q201 286 195 270Z" fill="#df8295" stroke="#b86b82" stroke-width="3"/>
+                  <path id="mouthPath" d="M210 287 Q194 310 183 290 M210 287 Q227 310 239 290" stroke="#4c424c" stroke-width="5" fill="none" stroke-linecap="round"/>
+                  <g id="openMouth" opacity="0"><ellipse cx="210" cy="306" rx="23" ry="17" fill="#542838"/><path d="M196 315 Q210 302 224 315" fill="#ef8390"/><path d="M199 297 L206 301 212 297 218 301" fill="none" stroke="#fff" stroke-width="3"/></g>
+                  <g stroke="#dfe3ed" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".88">
+                    <path d="M167 291 Q128 276 97 282 M165 298 Q131 299 103 310 M249 293 Q289 279 318 283 M250 300 Q285 301 316 313"/>
+                  </g>
+                  <ellipse cx="135" cy="283" rx="17" ry="8" fill="#f6a4aa" opacity=".25"/><ellipse cx="280" cy="283" rx="17" ry="8" fill="#f6a4aa" opacity=".25"/>
+                </g>
+                <g id="petHat" style="display:none">
+                  <path d="M123 130 Q127 55 207 63 Q289 54 295 131 Q223 150 123 130" fill="#171c2c" stroke="#48516a" stroke-width="5"/>
+                  <ellipse cx="211" cy="132" rx="111" ry="16" fill="#161b2d" stroke="#46516a" stroke-width="4"/>
+                  <path d="M197 109 L209 84 225 117 214 114 209 99 205 115Z" fill="#f36a54"/><path d="M210 87 L222 97 219 106 211 101Z" fill="#37d0ef"/>
+                </g>
+                <g id="petCrown" style="display:none">
+                  <path d="M137 138 L125 73 166 96 210 47 251 96 291 72 280 140Z" fill="url(#gold)" stroke="#a86325" stroke-width="6"/><circle cx="210" cy="110" r="13" fill="#f06a72"/><circle cx="166" cy="117" r="8" fill="#53cded"/><circle cx="249" cy="117" r="8" fill="#53cded"/>
+                </g>
+                <g id="petSheriff" style="display:none">
+                  <path d="M160 398 L210 389 259 398 210 411Z" fill="#eeb557"/>
+                  <path d="M210 386 L217 398 231 399 222 407 225 421 210 414 195 421 197 406 187 398 203 397Z" fill="url(#gold)" stroke="#a46d25" stroke-width="2"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="pet-particles" id="petParticles" aria-hidden="true"></div>
+          <div class="sleep-letters" id="sleepLetters">Z<span>z</span><small>z</small></div>
+        </div>
+        <div class="scene-hint">✦ <span id="sceneHint">Нажми на котика — он отреагирует!</span></div>
+        <div class="scene-bottom"><span class="scene-dot"></span><span id="moodDescription">Я сегодня в отличном настроении!</span><span class="scene-time" id="sceneTime"></span></div>
+      </section>
+
+      <aside class="dashboard">
+        <div class="dash-head"><span>ПРОФИЛЬ ПИТОМЦА</span><span class="live-pill"><i></i> ЖИВОЙ</span></div>
+        <div class="identity-card">
+          <span class="identity-icon">🐱</span><div><strong id="profileName">Томик</strong><p>Легенда Аризоны · <span id="profileAge">1 день</span></p></div>
+          <button class="edit-name" id="renameButton" title="Переименовать" aria-label="Переименовать">✎</button>
+        </div>
+        <div class="dash-progress"><div><span>Опыт персонажа</span><b id="xpText">0 / 100 XP</b></div><div class="meter"><span id="dashXpBar"></span></div></div>
+        <div class="dash-divider"></div>
+        <div class="dash-section-title">ЕЖЕДНЕВНЫЕ ЗАДАНИЯ <span>+ AZ</span></div>
+        <div id="missionsList" class="missions-list"></div>
+        <button id="dailyBonus" class="daily-button"><span class="gift-icon">🎁</span><span><b>Ежедневный бонус</b><small id="dailySubtitle">Забери бесплатные монеты</small></span><span class="arrow-icon">→</span></button>
+        <div class="dash-divider"></div>
+        <div class="dash-section-title">БЫСТРЫЕ ДЕЙСТВИЯ</div>
+        <div class="quick-grid">
+          <button data-action="pet">♥ <span>Погладить</span></button><button data-action="dance">♫ <span>Потанцевать</span></button><button data-action="talk">☷ <span>Поговорить</span></button><button data-action="sleep">☾ <span>Поспать</span></button>
+        </div>
+        <p class="tip-card" id="tipText">Совет: следи за сытостью, настроением, энергией и чистотой!</p>
+      </aside>
+    </div>
+
+    <section class="action-dock" aria-label="Действия питомца">
+      <button data-action="food" class="action-btn action-food"><span class="action-graphic">🍔</span><span>Кормить</span><small>+ сытость</small></button>
+      <button data-action="bath" class="action-btn action-bath"><span class="action-graphic">🫧</span><span>Купать</span><small>+ чистота</small></button>
+      <button data-action="games" class="action-btn action-games"><span class="action-graphic">🎮</span><span>Играть</span><small>+ монеты</small></button>
+      <button data-action="pet" class="action-btn action-pet"><span class="action-graphic">💖</span><span>Ласкать</span><small>+ счастье</small></button>
+      <button data-action="sleep" class="action-btn action-sleep"><span class="action-graphic">🌙</span><span id="sleepButtonText">Спать</span><small>+ энергия</small></button>
+      <button data-action="talk" class="action-btn action-talk"><span class="action-graphic">🎤</span><span>Говорить</span><small>повторюшка</small></button>
+    </section>
+
+    <section class="control-panel" id="controlPanel" aria-live="polite">
+      <div class="panel-heading"><div><span class="eyebrow" id="contextKicker">ТВОЙ ИГРОВОЙ МИР</span><h2 id="contextTitle">ДОБРО ПОЖАЛОВАТЬ ДОМОЙ</h2><p id="contextSubtitle">Играй с котиком, развивай его и собирай награды</p></div><span class="panel-deco">✳</span></div>
+      <div id="sectionContent" class="section-content"></div>
+    </section>
+    <footer class="foot">ARIZONA PET · ФАНАТСКАЯ ИГРА В СТИЛЕ ARIZONA RP <span>СОХРАНЕНИЕ НА ЭТОМ УСТРОЙСТВЕ</span></footer>
+  </main>
+</div>
+<div class="modal-backdrop hidden" id="gameOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-window"><div class="modal-top"><div><span class="eyebrow" id="modalKicker">ARIZONA PET</span><h2 id="modalTitle">МИНИ-ИГРА</h2></div><button class="close-button" id="closeModal" aria-label="Закрыть">✕</button></div><div id="modalContent"></div></div>
+</div>
+<div class="toast-area" id="toastArea" role="status" aria-live="polite"></div>
+</body>
+</html>
